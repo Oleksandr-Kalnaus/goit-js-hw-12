@@ -49,7 +49,7 @@ const searchImages = async (query, page) => {
             const newImages = data.hits.map(createGalleryCard).join('');
             imageGallery.insertAdjacentHTML('beforeend', newImages);
         }
-        
+        searchForm.reset();
         updateLoadMoreButton();
     } catch (error) {
         console.error('Error fetching images:', error);
@@ -59,7 +59,6 @@ const searchImages = async (query, page) => {
         });
     } finally {
         hideLoader();
-        searchForm.reset();
     }
 };
 

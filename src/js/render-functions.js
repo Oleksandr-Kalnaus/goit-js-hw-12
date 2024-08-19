@@ -23,6 +23,13 @@ export const createGalleryCard = (pictureInfo) => {
         </li>`;
 };
 
+const lightbox = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionPosition: 'bottom',
+    captionDelay: 250,
+    overlayOpacity: 0.8,
+});
+
 export const renderGallery = async (images, reset = false) => {
     if (reset) {
         imageGallery.innerHTML = "";
@@ -39,12 +46,5 @@ export const renderGallery = async (images, reset = false) => {
     const galleryCardsTemplate = images.map(createGalleryCard).join('');
     imageGallery.insertAdjacentHTML('beforeend', galleryCardsTemplate);
 
-    const lightbox = new SimpleLightbox('.gallery a', {
-        captionsData: 'alt',
-        captionPosition: 'bottom',
-        captionDelay: 250,
-        overlayOpacity: 0.8,
-    });
-    
     await lightbox.refresh();
 };
