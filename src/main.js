@@ -40,6 +40,8 @@ const searchImages = async (query, page) => {
                 message: "Sorry, there are no images matching your search query. Please try again!",
                 position: 'topRight',
             });
+            loadMoreBtn.classList.add('hidden');
+            imageGallery.innerHTML = "";
             return;
         }
 
