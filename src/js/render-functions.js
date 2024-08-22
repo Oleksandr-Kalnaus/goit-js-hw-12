@@ -4,6 +4,13 @@ import iziToast from 'izitoast';
 
 const imageGallery = document.querySelector('.gallery');
 
+const lightbox = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionPosition: 'bottom',
+    captionDelay: 250,
+    overlayOpacity: 0.8,
+});
+
 export const createGalleryCard = (pictureInfo) => {
     return `<li class="gallery-item">
             <a class="gallery-link" href="${pictureInfo.largeImageURL}">
@@ -23,13 +30,6 @@ export const createGalleryCard = (pictureInfo) => {
         </li>`;
 };
 
-const lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionPosition: 'bottom',
-    captionDelay: 250,
-    overlayOpacity: 0.8,
-});
-
 export const renderGallery = async (images, reset = false) => {
     if (reset) {
         imageGallery.innerHTML = "";
@@ -46,5 +46,5 @@ export const renderGallery = async (images, reset = false) => {
     const galleryCardsTemplate = images.map(createGalleryCard).join('');
     imageGallery.insertAdjacentHTML('beforeend', galleryCardsTemplate);
 
-    await lightbox.refresh();
+    lightbox.refresh();
 };

@@ -1,5 +1,5 @@
 import { fetchImages } from './js/pixabay-api.js';
-import { renderGallery, createGalleryCard } from './js/render-functions.js';
+import { renderGallery } from './js/render-functions.js';
 import iziToast from 'izitoast';
 
 const searchForm = document.querySelector('.search-form');
@@ -48,8 +48,8 @@ const searchImages = async (query, page) => {
         if (page === 1) {
             renderGallery(data.hits, true);
         } else {
-            const newImages = data.hits.map(createGalleryCard).join('');
-            imageGallery.insertAdjacentHTML('beforeend', newImages);
+            renderGallery(data.hits, false);
+            smoothScroll();
         }
         searchForm.reset();
         updateLoadMoreButton();
@@ -80,6 +80,15 @@ const updateLoadMoreButton = () => {
 const loadMoreImages = () => {
     currentPage++;
     searchImages(currentQuery, currentPage);
+};
+
+// Реалізація плавного скролу
+const smoothScroll = () => {
+    const { height: cardHeight } = imageGallery.firstElementChild.getBoundingClientRect();
+    window.scrollBy({
+        top: cardHeight * 2,
+        behavior: 'smooth',
+    });
 };
 
 searchForm.addEventListener('submit', onSearchForm);
